@@ -35,12 +35,16 @@ int main (int argc, char *argv[])
 {
     uint8_t arr[6];
     int i;
+    uint16_t crc;
 
     for (i = 0; i < 6; i++)
 		arr[i] = strtol(argv[i + 1], NULL, 16);
 
-    printf("CRC value: 0x%04X\n", calc_crc16(arr, sizeof(arr) / sizeof(arr[0])));
+    crc = calc_crc16(arr, sizeof(arr) / sizeof(arr[0]));
+    printf("CRC value: 0x%04X\n", crc);
+
     /* The result should be swapped */
+    printf("CRC reversed: 0x%04X\n", ((crc & 0xff00) >> 8) | ((crc & 0xff) << 8));
 
     return 0;
 }
